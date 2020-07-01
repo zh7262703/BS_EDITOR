@@ -1,0 +1,7 @@
+/*可以在这里添加你自己的css*/
+
+td,
+th {
+    padding: 3px 3px !important;
+    border: 1px solid #DDD;
+}

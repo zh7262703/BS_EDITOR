@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <script type="text/javascript" src="../internal.js"></script>
+    <style type="text/css">
+        *{margin:0;padding:0;color: #838383;}
+        table{font-size: 12px;margin: 10px;line-height: 30px}
+        .txt{width:240px;height:108px;line-height:21px;border:1px solid #d7d7d7;}
+    </style>
+</head>
+<body>
+    <table>
+        <tr>
+            <td colspan="2"><textarea class="txt" rows="3" id="title"></textarea> </td>
+        </tr>
+    </table>
+<script type="text/javascript">
+(function(UE) {
+    var oNode = null,
+        thePlugins = 'editattr';
+    //初始化加载之前编辑的数据
+    window.onload = function() {
+        if (UE.plugins[thePlugins].editdom) {
+            oNode = UE.plugins[thePlugins].editdom;
+        }
+        $G('title').focus();
+
+    };
+
+    dialog.oncancel = function() {
+        if (UE.plugins[thePlugins].editdom) {
+            delete UE.plugins[thePlugins].editdom;
+        }
+    };
+    dialog.onok = function() {
+        if ($G('title').value == '') {
+            alert('请输入内容');
+            return false;
+        }
+
+        if (!oNode) {
+            try {
+                editor.execCommand('rcomment', {val:$G('title').value});
+            } catch (e) {
+                try {
+                    editor.execCommand('error');
+                } catch (e) {
+                    alert('控件异常，请联系管理员！');
+                }
+                return false;
+            }
+        } else {
+            delete UE.plugins[thePlugins].editdom;
+        }
+    };
+})(UE);
+</script>
+</body>
+</html>

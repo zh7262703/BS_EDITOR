@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="e3fbe96b-4bb4-4505-87a0-062a3f9abce4" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="PackageJsonUpdateNotifier">
+    <dismissed value="$PROJECT_DIR$/package.json" />
+  </component>
+  <component name="ProjectId" id="1ckG9AhkhuiqqgQEMu0h6CQRDRK" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="javascript.karma.karma_node_package_dir" value="" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../emreditor2.2.0" />
+    <property name="nodejs.cucumber.cucumber_node_package_dir" value="" />
+    <property name="nodejs.mocha.mocha_node_package_dir" value="" />
+    <property name="nodejs.protractor.protractor_package" value="" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="watcher.settings" />
+  </component>
+  <component name="RunManager" selected="JavaScript Debug.test2">
+    <configuration name="index.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:55813/SoDiaoEditor-4.0/index.html" useBuiltInWebServerPort="true">
+      <method v="2" />
+    </configuration>
+    <configuration name="test1" type="JavascriptDebugType" engineId="98ca6316-2f89-46d9-a9e5-fa9e2b0625b3" uri="http://localhost:8858/index.html" useFirstLineBreakpoints="true">
+      <method v="2" />
+    </configuration>
+    <configuration name="test2" type="JavascriptDebugType" uri="http://localhost:8081/SoDiaoEditor4.0/HtmlPage.html">
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="JavaScript Debug.test1" />
+      <item itemvalue="JavaScript Debug.test2" />
+      <item itemvalue="JavaScript Debug.index.html" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JavaScript Debug.index.html" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="e3fbe96b-4bb4-4505-87a0-062a3f9abce4" name="Default Changelist" comment="" />
+      <created>1591065023698</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1591065023698</updated>
+      <workItem from="1591065027523" duration="363000" />
+      <workItem from="1591065415120" duration="321000" />
+      <workItem from="1591065772114" duration="51000" />
+      <workItem from="1591065891482" duration="1454000" />
+      <workItem from="1591067806517" duration="12434000" />
+      <workItem from="1591235511527" duration="5361000" />
+      <workItem from="1591600863002" duration="670000" />
+      <workItem from="1591607601473" duration="4416000" />
+      <workItem from="1591689670518" duration="648000" />
+      <workItem from="1591691043474" duration="7717000" />
+      <workItem from="1591754809822" duration="7368000" />
+      <workItem from="1591779984135" duration="692000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="2" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="507" y="157" key="#Web_Browsers" timestamp="1591691718497">
+      <screen x="0" y="0" width="1366" height="724" />
+    </state>
+    <state x="507" y="157" key="#Web_Browsers/0.0.1366.724@0.0.1366.724" timestamp="1591691718497" />
+    <state x="142" y="21" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1591697983662">
+      <screen x="0" y="0" width="1366" height="724" />
+    </state>
+    <state x="142" y="21" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1366.724@0.0.1366.724" timestamp="1591697983662" />
+    <state x="334" y="146" key="EditFileWatcherDialog" timestamp="1591066329022">
+      <screen x="0" y="0" width="1366" height="724" />
+    </state>
+    <state x="334" y="146" key="EditFileWatcherDialog/0.0.1366.724@0.0.1366.724" timestamp="1591066329022" />
+    <state x="467" y="121" key="FileChooserDialogImpl" timestamp="1591756300136">
+      <screen x="0" y="0" width="1366" height="724" />
+    </state>
+    <state x="467" y="121" key="FileChooserDialogImpl/0.0.1366.724@0.0.1366.724" timestamp="1591756300136" />
+    <state width="1345" height="172" key="GridCell.Tab.0.bottom" timestamp="1591780686748">
+      <screen x="0" y="0" width="1366" height="724" />
+    </state>
+    <state width="1345" height="172" key="GridCell.Tab.0.bottom/0.0.1366.724@0.0.1366.724" timestamp="1591780686748" />
+    <state width="1345" height="172" key="GridCell.Tab.0.center" timestamp="1591780686748">
+      <screen x="0" y="0" width="1366" height="724" />
+    </state>
+    <state width="1345" height="172" key="GridCell.Tab.0.center/0.0.1366.724@0.0.1366.724" timestamp="1591780686748" />
+    <state width="1345" height="172" key="GridCell.Tab.0.left" timestamp="1591780686748">
+      <screen x="0" y="0" width="1366" height="724" />
+    </state>
+    <state width="1345" height="172" key="GridCell.Tab.0.left/0.0.1366.724@0.0.1366.724" timestamp="1591780686748" />
+    <state width="1345" height="172" key="GridCell.Tab.0.right" timestamp="1591780686748">
+      <screen x="0" y="0" width="1366" height="724" />
+    </state>
+    <state width="1345" height="172" key="GridCell.Tab.0.right/0.0.1366.724@0.0.1366.724" timestamp="1591780686748" />
+    <state width="1345" height="172" key="GridCell.Tab.1.bottom" timestamp="1591780686749">
+      <screen x="0" y="0" width="1366" height="724" />
+    </state>
+    <state width="1345" height="172" key="GridCell.Tab.1.bottom/0.0.1366.724@0.0.1366.724" timestamp="1591780686749" />
+    <state width="1345" height="172" key="GridCell.Tab.1.center" timestamp="1591780686748">
+      <screen x="0" y="0" width="1366" height="724" />
+    </state>
+    <state width="1345" height="172" key="GridCell.Tab.1.center/0.0.1366.724@0.0.1366.724" timestamp="1591780686748" />
+    <state width="1345" height="172" key="GridCell.Tab.1.left" timestamp="1591780686748">
+      <screen x="0" y="0" width="1366" height="724" />
+    </state>
+    <state width="1345" height="172" key="GridCell.Tab.1.left/0.0.1366.724@0.0.1366.724" timestamp="1591780686748" />
+    <state width="1345" height="172" key="GridCell.Tab.1.right" timestamp="1591780686749">
+      <screen x="0" y="0" width="1366" height="724" />
+    </state>
+    <state width="1345" height="172" key="GridCell.Tab.1.right/0.0.1366.724@0.0.1366.724" timestamp="1591780686749" />
+    <state width="1345" height="172" key="GridCell.Tab.2.bottom" timestamp="1591780686749">
+      <screen x="0" y="0" width="1366" height="724" />
+    </state>
+    <state width="1345" height="172" key="GridCell.Tab.2.bottom/0.0.1366.724@0.0.1366.724" timestamp="1591780686749" />
+    <state width="1345" height="172" key="GridCell.Tab.2.center" timestamp="1591780686749">
+      <screen x="0" y="0" width="1366" height="724" />
+    </state>
+    <state width="1345" height="172" key="GridCell.Tab.2.center/0.0.1366.724@0.0.1366.724" timestamp="1591780686749" />
+    <state width="1345" height="172" key="GridCell.Tab.2.left" timestamp="1591780686749">
+      <screen x="0" y="0" width="1366" height="724" />
+    </state>
+    <state width="1345" height="172" key="GridCell.Tab.2.left/0.0.1366.724@0.0.1366.724" timestamp="1591780686749" />
+    <state width="1345" height="172" key="GridCell.Tab.2.right" timestamp="1591780686749">
+      <screen x="0" y="0" width="1366" height="724" />
+    </state>
+    <state width="1345" height="172" key="GridCell.Tab.2.right/0.0.1366.724@0.0.1366.724" timestamp="1591780686749" />
+    <state width="1345" height="172" key="GridCell.Tab.3.bottom" timestamp="1591780686749">
+      <screen x="0" y="0" width="1366" height="724" />
+    </state>
+    <state width="1345" height="172" key="GridCell.Tab.3.bottom/0.0.1366.724@0.0.1366.724" timestamp="1591780686749" />
+    <state width="1345" height="172" key="GridCell.Tab.3.center" timestamp="1591780686749">
+      <screen x="0" y="0" width="1366" height="724" />
+    </state>
+    <state width="1345" height="172" key="GridCell.Tab.3.center/0.0.1366.724@0.0.1366.724" timestamp="1591780686749" />
+    <state width="1345" height="172" key="GridCell.Tab.3.left" timestamp="1591780686749">
+      <screen x="0" y="0" width="1366" height="724" />
+    </state>
+    <state width="1345" height="172" key="GridCell.Tab.3.left/0.0.1366.724@0.0.1366.724" timestamp="1591780686749" />
+    <state width="1345" height="172" key="GridCell.Tab.3.right" timestamp="1591780686749">
+      <screen x="0" y="0" width="1366" height="724" />
+    </state>
+    <state width="1345" height="172" key="GridCell.Tab.3.right/0.0.1366.724@0.0.1366.724" timestamp="1591780686749" />
+    <state x="225" y="0" key="SettingsEditor" timestamp="1591066331508">
+      <screen x="0" y="0" width="1366" height="724" />
+    </state>
+    <state x="225" y="0" key="SettingsEditor/0.0.1366.724@0.0.1366.724" timestamp="1591066331508" />
+    <state x="346" y="45" width="672" height="678" key="search.everywhere.popup" timestamp="1591692206131">
+      <screen x="0" y="0" width="1366" height="724" />
+    </state>
+    <state x="346" y="45" width="672" height="678" key="search.everywhere.popup/0.0.1366.724@0.0.1366.724" timestamp="1591692206131" />
+  </component>
+</project>

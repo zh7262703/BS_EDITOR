@@ -1,0 +1,168 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+
+<head>
+    <title>二维码</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <link href="../../third-party/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="jscolor/jscolor.min.js"></script>
+    <script src="../../third-party/jquery-1.10.2.min.js"></script>
+    <script src="../internal.js"></script>
+    <script type="text/javascript">
+    function createElement(type, name) {
+        var element = null;
+        try {
+            element = document.createElement('<' + type + ' name="' + name + '">');
+        } catch (e) {}
+        if (element == null) {
+            element = document.createElement(type);
+            element.name = name;
+        }
+        return element;
+    }
+
+    </script>
+</head>
+
+<body>
+    <div class="content">
+        <table class="table table-bordered table-striped table-hover">
+            <tr>
+                <td><span>控件名称</span><span class="label label-important">*</span></td>
+                <td>
+                    <input id="orgname" placeholder="必填项" type="text" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span>类型</span>
+                </td>
+                <td>
+                    <select id="orgtype" class="form-control">
+                        <option value="text">文本</option>
+                        <option value="url">超链接 url</option>
+                        <option value="tel">电话</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td><span>文本框样式</span> </td>
+                <td>
+                    宽
+                    <input id="orgwidth" type="text" value="40" class="input-small span1" placeholder="auto" /> px &nbsp;&nbsp; 高
+                    <input id="orgheight" type="text" value="40" class="input-small span1" placeholder="auto" /> px
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <label for="orgvalue">内容</label>
+                    <textarea class="input-block-level" rows="3" id="orgvalue" placeholder="二维码内容..."></textarea>
+                </td>
+            </tr>
+        </table>
+        <div class="alert alert-danger">提示：二维码只支持少量内容，请不要加入大量内容</div>
+    </div>
+    <script type="text/javascript">
+    var oNode = null,
+        thePlugins = 'qrcode';
+    window.onload = function() {
+        if (UE.plugins[thePlugins].editdom) {
+            oNode = UE.plugins[thePlugins].editdom;
+            var gValue = oNode.getAttribute('value').replace(/&quot;/g, "\""),
+                gTitle = oNode.getAttribute('title').replace(/&quot;/g, "\""),
+                gWidth = oNode.getAttribute('orgwidth'),
+                gHeight = oNode.getAttribute('orgheight'),
+                gType = oNode.getAttribute('orgtype');
+            $G('orgvalue').value = gValue;
+            $G('orgname').value = gTitle;
+            $G('orgwidth').value = gWidth;
+            $G('orgheight').value = gHeight;
+            $G('orgtype').value = gType;
+        }
+    }
+    dialog.oncancel = function() {
+        if (UE.plugins[thePlugins].editdom) {
+            delete UE.plugins[thePlugins].editdom;
+        }
+    };
+    dialog.onok = function() {
+        if ($G('orgname').value == '') {
+            alert('控件名称不能为空');
+            return false;
+        }
+        var gValue = $G('orgvalue').value.replace(/\"/g, "&quot;"),
+            gTitle = $G('orgname').value.replace(/\"/g, "&quot;"),
+            gFontSize, gWidth = $G('orgwidth').value,
+            gHeight = $G('orgheight').value,
+            gType = $G('orgtype').value;
+
+        if (!oNode) {
+            try {
+
+                var url = editor.options.serverUrl + "?action=qrcode&qrcode=" + gValue;
+                $.ajax({
+                    type: "get",
+                    url: url,
+                    dataType: "json",
+                    async: false, 
+                    success: function(data) {
+                        oNode = createElement('img', 'field');
+                        oNode.setAttribute('title', gTitle);
+                        oNode.setAttribute('name', 'field');
+                        oNode.setAttribute('value', gValue);
+                        oNode.setAttribute('orgtype', gType);
+                        oNode.setAttribute('Plugins', thePlugins);
+                        oNode.setAttribute('src', data.Result);
+                        if (gWidth != '') {
+                            oNode.style.width = gWidth + 'px';
+                        }
+                        oNode.setAttribute('orgwidth', gWidth);
+                        if (gHeight != '') {
+                            oNode.style.height = gHeight + 'px';
+                        }
+                        oNode.setAttribute('orgheight', gHeight);
+                        editor.execCommand('insertHtml', oNode.outerHTML);
+                        return true;
+                    },
+                    error: function(XMLHttpRequest, textStatus, errorThrown) {
+
+                    }
+                });
+
+
+            } catch (e) {
+                try {
+                    editor.execCommand('error');
+                } catch (e) {
+                    alert('控件异常，请联系管理员');
+                }
+                return false;
+            }
+        } else {
+            oNode.setAttribute('title', gTitle);
+            oNode.setAttribute('orgtype', gType);
+            oNode.setAttribute('value', gValue);
+            //oNode.innerHTML = $G('orgvalue').value;
+            if (gWidth != '') {
+                oNode.style.width = gWidth + 'px';
+            } else {
+                oNode.style.width = '';
+            }
+            oNode.setAttribute('orgwidth', gWidth);
+            if (gHeight != '') {
+                oNode.style.height = gHeight + 'px';
+            } else {
+                oNode.style.height = '';
+            }
+            oNode.setAttribute('orgheight', gHeight);
+
+            delete UE.plugins[thePlugins].editdom;
+            return true;
+        }
+    };
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>下拉单选输入框</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <script src="../internal.js"></script>
+    <link href="../../third-party/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="jscolor/jscolor.min.js"></script>
+    <script src="../../third-party/jquery-1.10.2.min.js"></script>
+    <script src="../../third-party/bootstrap/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <div class="content">
+        <table class="table table-bordered table-striped table-hover">
+            <tr>
+                <td><span>控件名称</span><span class="label label-important">*</span></td>
+                <td>
+                    <input id="txtID" placeholder="必填项" type="text" /> </td>
+            </tr>
+            <tr>
+                <td>
+                    <span>一级数据</span>
+                </td>
+                <td>
+                    <select id="txtDATA" style="width:100%;" multiple="multiple" class="span14">
+                        <option value="1">是</option>
+                        <option value="2">否</option>
+                    </select>
+                </td>
+            </tr>
+        </table>
+        <table class="table table-bordered table-striped table-hover">
+            <tr>
+                <th><span>输入域标识</span><span class="label label-important">*</span></th>
+                <th><span>描述名</span><span class="label label-important">*</span></th>
+            </tr>
+            <tr>
+                <td>
+                    <input type="text" id="txtID" placeholder="必填项">
+                </td>
+                <td>
+                    <input type="text" id="txtNAME" placeholder="描述名">
+                </td>
+            </tr>
+            <tr>
+                <th><span>标签</span> </th>
+                <th><span>是否必填</span> </th>
+            </tr>
+            <tr>
+                <td>
+                    <input type="text" id="txtTAG" placeholder="标签,多个用逗号隔开">
+                </td>
+                <td>
+                    <label class="checkbox inline">
+                        <input id="txtREQUIRED" type="checkbox" /> 必填 </label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="text" id="txtCOLOR" class="jscolor" placeholder="颜色" value="000000">
+                </td>
+                <td>
+                    <div class="input-append">
+                        <input type="text" id="txtDEFAULTVALUE" readonly="readonly" placeholder="默认值"><a title="删除" class="btn" href="#" onclick="deleteDefaultOption()"><i class="icon-trash"></i></a>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th colspan="2"><span>数据源</span> </th>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <label class="checkbox inline">
+                        <input id="txtRemote" type="checkbox" /> 是否绑定服务器API数据源 </label>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <div class="tabbable">
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="tab1">
+                                <select id="txtBINDINGDATA" style="width:100%;" multiple="multiple" onclick="BINDINGDATAClick(this)" class="span14">
+                                    <!--<option value="111">1111</option>
+                                    <option value="222">2222</option>-->
+                                </select>
+                                <div class="input-prepend">
+                                    <div class="btn-group pull-right">
+                                        <a title="添加" class="btn btn-primary" onclick="add()" href="#"><i class="icon-white icon-plus"></i></a>
+                                        <a title="编辑" class="btn" href="#" onclick="edit()"><i class="icon-edit"></i></a>
+                                        <a title="上移" class="btn" href="#" onclick="upMove()"><i class="icon-arrow-up"></i></a>
+                                        <a title="下移" class="btn" href="#" onclick="downMove()"><i class="icon-arrow-down"></i></a>
+                                        <a title="设置默认" class="btn" href="#" onclick="setDefault()"><i class="icon-ok-circle"></i></a>
+                                        <a title="删除" class="btn" href="#" onclick="deleteOption()"><i class="icon-trash"></i></a>
+                                    </div>
+                                    <div class="input-append" style="margin-right:10px;">
+                                        <button class="btn disabled" type="button">值</button>
+                                        <input type="text" id="txtInputValue" onchange="(($G('txtInputDesc').value=='')?$G('txtInputDesc').value = $G('txtInputValue').value:'')" class="span2" placeholder="值" style="width:100px;border-radius:0 4px 4px 0;" />
+                                    </div>
+                                    <div class="input-append" style="margin-right:10px;">
+                                        <button class="btn disabled" type="button">描述</button>
+                                        <input type="text" id="txtInputDesc" class="span2" placeholder="描述" style="width:100px;border-radius:0 4px 4px 0;" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="tab2">
+                                <input type="text" placeholder="API地址" style="width:90%;" id="txtREMOTEURL" />
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <script src="editselect.js"></script>
+</body>
+
+</html>

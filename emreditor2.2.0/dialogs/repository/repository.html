@@ -1,0 +1,357 @@
+<!DOCTYPE>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>表单设计器 - 清单</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="generator" content="">
+    <script src="../internal.js"></script>
+    <link href="../../third-party/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <!--[if lte IE 6]>
+    <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap-ie6.css">
+    <![endif]-->
+    <!--[if lte IE 7]>
+    <link rel="stylesheet" type="text/css" href="bootstrap/css/ie.css">
+    <![endif]-->
+    <link rel="stylesheet" href="../../third-party/tree/css/zTreeStyle/zTreeStyle.css" type="text/css">
+    <script src="../../third-party/jquery-1.10.2.min.js"></script>
+    <script src="../../third-party/bootstrap/js/bootstrap.min.js"></script>
+    <script src="../../third-party/tree/js/jquery.ztree.core.js"></script>
+    <style type="text/css">
+    button {
+        margin: 2px;
+    }
+
+    </style>
+    <style>
+    body {
+        background-color: white;
+        margin: 0;
+        padding: 0;
+        text-align: center;
+    }
+
+    div,
+    p,
+    table,
+    th,
+    td {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        color: #333;
+        font-size: 12px;
+        font-family: dotum, Verdana, Arial, Helvetica, AppleGothic, sans-serif;
+    }
+
+    #testIframe {
+        margin-left: 10px;
+    }
+
+    .tab-content {
+        margin: 10px;
+    }
+
+    #myTab {
+        margin: 2px;
+    }
+
+    </style>
+</head>
+
+<body>
+    <ul id="myTab" class="nav nav-tabs">
+        <li class="active">
+            <a href="#home" data-toggle="tab">
+             医学资源
+        </a>
+        </li>
+        <li><a href="#yxzy" data-toggle="tab">药学资源</a></li>
+        <li><a href="#ico" data-toggle="tab">ICO-10</a></li>
+        <li><a href="#my" data-toggle="tab">我的模板</a></li>
+    </ul>
+    <div id="myTabContent" class="tab-content">
+        <div class="tab-pane fade in active" id="home">
+            <TABLE border=0 align=left>
+                <TR>
+                    <TD width=210px align=left valign=top style="BORDER-RIGHT: #999999 1px dashed">
+                        <ul id="tree" class="ztree" style="width:210px; overflow:auto;"></ul>
+                    </TD>
+                    <TD width=590px align=left valign=top>
+                        <div class="well">
+                            <div class="alert alert-info">
+                                <span class="title"></span>
+                            </div>
+                            <div class="content alert alert-info">
+                            </div>
+                        </div>
+                    </TD>
+                </TR>
+            </TABLE>
+        </div>
+        <div class="tab-pane fade in" id="yxzy">
+            <TABLE border=0 align=left>
+                <TR>
+                    <TD width=210px align=left valign=top style="BORDER-RIGHT: #999999 1px dashed">
+                        <ul id="tree2" class="ztree" style="width:210px; overflow:auto;"></ul>
+                    </TD>
+                    <TD width=590px align=left valign=top>
+                        <div class="well">
+                            <div class="alert alert-info">
+                                <span class="title"></span>
+                            </div>
+                            <div class="content alert alert-info">
+                            </div>
+                        </div>
+                    </TD>
+                </TR>
+            </TABLE>
+        </div>
+        <div class="tab-pane fade in" id="ico">
+            <TABLE border=0 align=left>
+                <TR>
+                    <TD width=210px align=left valign=top style="BORDER-RIGHT: #999999 1px dashed">
+                        <ul id="tree3" class="ztree" style="width:210px; overflow:auto;"></ul>
+                    </TD>
+                    <TD width=590px align=left valign=top>
+                        <div class="well">
+                            <div class="alert alert-info">
+                                <span class="title"></span>
+                            </div>
+                            <div class="content alert alert-info">
+                            </div>
+                        </div>
+                    </TD>
+                </TR>
+            </TABLE>
+        </div>
+        <div class="tab-pane fade in" id="my">
+            <TABLE border=0 align=left>
+                <TR>
+                    <TD width=210px align=left valign=top style="BORDER-RIGHT: #999999 1px dashed">
+                        <ul id="tree4" class="ztree" style="width:210px; overflow:auto;"></ul>
+                    </TD>
+                    <TD width=590px align=left valign=top>
+                        <div class="well">
+                            <div class="alert alert-info">
+                                <span class="title"></span>
+                            </div>
+                            <div class="content alert alert-info">
+                            </div>
+                        </div>
+                    </TD>
+                </TR>
+            </TABLE>
+        </div>
+    </div>
+    <script type="text/javascript">
+    var demoIframe;
+
+    var setting = {
+        view: {
+            dblClickExpand: false,
+            showLine: true,
+            selectedMulti: false
+        },
+        data: {
+            simpleData: {
+                enable: true,
+                idKey: "id",
+                pIdKey: "pId",
+                rootPId: ""
+            }
+        },
+        callback: {
+            beforeClick: function(treeId, treeNode) {
+                var zTree = $.fn.zTree.getZTreeObj("tree");
+                if (treeNode.isParent) {
+                    zTree.expandNode(treeNode);
+                    return false;
+                } else {
+                    //demoIframe.attr("src", treeNode.file + ".html");
+                    $.getJSON(treeNode.file, function(json, textStatus) {
+                        $('.active .title').html(treeNode.name);
+                        $('.active .content').html(json.Data);
+                    });
+
+                    return true;
+                }
+            }
+        }
+    };
+    var setting2 = {
+        view: {
+            dblClickExpand: false,
+            showLine: true,
+            selectedMulti: false
+        },
+        data: {
+            simpleData: {
+                enable: true,
+                idKey: "id",
+                pIdKey: "pId",
+                rootPId: ""
+            }
+        },
+        callback: {
+            beforeClick: function(treeId, treeNode) {
+                var zTree = $.fn.zTree.getZTreeObj("tree2");
+                if (treeNode.isParent) {
+                    zTree.expandNode(treeNode);
+                    return false;
+                } else {
+                    //demoIframe.attr("src", treeNode.file + ".html");
+                    $.getJSON(treeNode.file, function(json, textStatus) {
+                        $('.active .title').html(treeNode.name);
+                        $('.active .content').html(json.Data);
+                    });
+
+                    return true;
+                }
+            }
+        }
+    };
+    var setting3 = {
+        view: {
+            dblClickExpand: false,
+            showLine: true,
+            selectedMulti: false
+        },
+        data: {
+            simpleData: {
+                enable: true,
+                idKey: "id",
+                pIdKey: "pId",
+                rootPId: ""
+            }
+        },
+        callback: {
+            beforeClick: function(treeId, treeNode) {
+                var zTree = $.fn.zTree.getZTreeObj("tree3");
+                if (treeNode.isParent) {
+                    zTree.expandNode(treeNode);
+                    return false;
+                } else {
+                    //demoIframe.attr("src", treeNode.file + ".html");
+                    $.getJSON(treeNode.file, function(json, textStatus) {
+                        $('.active .title').html(treeNode.name);
+                        $('.active .content').html(json.Data);
+                    });
+
+                    return true;
+                }
+            }
+        }
+    };
+    var setting4 = {
+        view: {
+            dblClickExpand: false,
+            showLine: true,
+            selectedMulti: false
+        },
+        data: {
+            simpleData: {
+                enable: true,
+                idKey: "id",
+                pIdKey: "pId",
+                rootPId: ""
+            }
+        },
+        callback: {
+            beforeClick: function(treeId, treeNode) {
+                var zTree = $.fn.zTree.getZTreeObj("tree4");
+                if (treeNode.isParent) {
+                    zTree.expandNode(treeNode);
+                    return false;
+                } else {
+                    //demoIframe.attr("src", treeNode.file + ".html");
+                    $.getJSON(treeNode.file, function(json, textStatus) {
+                        $('.active .title').html(treeNode.name);
+                        $('.active .content').html(json.Data);
+                    });
+
+                    return true;
+                }
+            }
+        }
+    };
+    $(document).ready(function() {
+        var t = $("#tree");
+        var url1 = window.parent.UEDITOR_CONFIG.repository1;
+        $.getJSON(url1, function(json, textStatus) {
+            t = $.fn.zTree.init(t, setting, json.Data);
+            var zTree = $.fn.zTree.getZTreeObj("tree");
+            var nodes = zTree.getNodes();
+            if (nodes.length > 0) {
+                zTree.selectNode(nodes[0].children[0].children[0]);
+                var node = nodes[0].children[0].children[0];
+                $.getJSON(node.file, function(json, textStatus) {
+                    $('.active .title').html(node.name);
+                    $('.active .content').html(json.Data);
+                });
+            }
+        });
+
+        var t2 = $("#tree2");
+        var url2 = window.parent.UEDITOR_CONFIG.repository2;
+        $.getJSON(url2, function(json, textStatus) {
+            t2 = $.fn.zTree.init(t2, setting2, json.Data);
+            var zTree = $.fn.zTree.getZTreeObj("tree2");
+            var nodes = zTree.getNodes();
+            if (nodes.length > 0) {
+                zTree.selectNode(nodes[0].children[0].children[0]);
+                var node = nodes[0].children[0].children[0];
+                $.getJSON(node.file, function(json, textStatus) {
+                    $('.active .title').html(node.name);
+                    $('.active .content').html(json.Data);
+                });
+            }
+        });
+
+        var t3 = $("#tree3");
+        var url3 = window.parent.UEDITOR_CONFIG.repository3;
+        $.getJSON(url3, function(json, textStatus) {
+            t3 = $.fn.zTree.init(t3, setting3, json.Data);
+            var zTree = $.fn.zTree.getZTreeObj("tree3");
+            var nodes = zTree.getNodes();
+            if (nodes.length > 0) {
+                zTree.selectNode(nodes[0].children[0].children[0]);
+                var node = nodes[0].children[0].children[0];
+                $.getJSON(node.file, function(json, textStatus) {
+                    $('.active .title').html(node.name);
+                    $('.active .content').html(json.Data);
+                });
+            }
+        });
+
+        var t4 = $("#tree4");
+        var url4 = window.parent.UEDITOR_CONFIG.repository4;
+        $.getJSON(url4, function(json, textStatus) {
+            t4 = $.fn.zTree.init(t4, setting4, json.Data);
+            var zTree = $.fn.zTree.getZTreeObj("tree4");
+            var nodes = zTree.getNodes();
+            if (nodes.length > 0) {
+                zTree.selectNode(nodes[0].children[0].children[0]);
+                var node = nodes[0].children[0].children[0];
+                $.getJSON(node.file, function(json, textStatus) {
+                    $('.active .title').html(node.name);
+                    $('.active .content').html(json.Data);
+                });
+            }
+        });
+    });
+
+    $('button').bind('click', function(event) {
+        var lang = $(this).attr('lang');
+
+        if (lang) {
+            editor.execCommand('insertStruct', lang);
+            dialog.close(true);
+        }
+    });
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+
+<head>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <link href="../../third-party/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="jscolor/jscolor.min.js"></script>
+    <script src="../../third-party/jquery-1.10.2.min.js"></script>
+    <script src="../internal.js"></script>
+    <script type="text/javascript">
+        function createElement(type, name) {
+            var element = null;
+            try {
+                element = document.createElement('<' + type + ' name="' + name + '">');
+            } catch (e) {}
+            if (element == null) {
+                element = document.createElement(type);
+                element.name = name;
+            }
+            return element;
+        }
+
+    </script>
+</head>
+
+<body>
+    <div class="content">
+        <table class="table table-bordered table-striped table-hover">
+            <tr>
+                <td><span>控件标识</span><span class="label label-important">*</span></td>
+                <td>
+                    <input id="orgid" placeholder="必填项" type="text" />
+                </td>
+            </tr>
+            <tr>
+                <td><span>章节标题</span><span class="label label-important">*</span></td>
+                <td>
+                    <input id="articleTitle" placeholder="必填项" type="text" />
+                </td>
+            </tr>
+            <tr>
+                <td><span>是否只读</span><span class="label label-important">*</span></td>
+                <td>
+                    <label class="checkbox inline">
+                        <input id="txtREADONLY" type="checkbox" /> 是否只读 </label>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <script type="text/javascript">
+        var oNode = null,
+            thePlugins = 'editattr';
+        window.onload = function () {
+            if (UE.plugins[thePlugins].editdom) {
+                oNode = UE.plugins[thePlugins].editdom;
+                var orgid = oNode.getAttribute('data-id').replace(/&quot;/g, "\""),
+                    articleTitle = oNode.firstElementChild.firstElementChild.innerHTML,
+                    isEditable = oNode.firstElementChild.firstElementChild.getAttribute("contenteditable");
+                $G('orgid').value = orgid;
+                $G('articleTitle').value = articleTitle;
+                $G('txtREADONLY').checked = isEditable == "false" ? true : false;
+            }
+        }
+        dialog.oncancel = function () {
+            if (UE.plugins[thePlugins].editdom) {
+                delete UE.plugins[thePlugins].editdom;
+            }
+        };
+        dialog.onok = function () {
+            if ($G('orgid').value == '') {
+                alert('控件标识不能为空');
+                return false;
+            }
+            var orgid = $G('orgid').value.replace(/&quot;/g, "\""),
+                articleTitle = $G('articleTitle').value,
+                isEditable = $G('txtREADONLY').checked;
+
+            if (oNode) {
+                try {
+                    oNode.setAttribute('data-id', orgid);
+                    oNode.firstElementChild.firstElementChild.innerHTML=articleTitle;
+                    oNode.firstElementChild.firstElementChild.setAttribute("contenteditable", isEditable ? "false" : "true");
+                    delete UE.plugins[thePlugins].editdom;
+                    return true;
+                } catch (e) {
+                    try {
+                        editor.execCommand('error');
+                    } catch (e) {
+                        alert('控件异常，请联系管理员');
+                    }
+                    return false;
+                }
+            } 
+        };
+
+    </script>
+</body>
+
+</html>

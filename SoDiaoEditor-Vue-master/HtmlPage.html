@@ -1,0 +1,22 @@
+﻿<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SoDiaoEditor.v3 电子病历编辑器</title>
+    <script type="text/javascript" src="dist/js/sde.editor.js"></script>
+</head>
+<body>
+    <div id="myEditor" style="width:680px;height:1000px;margin:0 auto;">
+        病历模板/后续调用sde.html设置...
+    </div>
+    <script type="text/javascript">
+        window.onload = function() {
+            var sde = new SDE({
+                id: "myEditor"
+            });
+            //注：在编辑器SDE为同步渲染
+        };
+    </script>
+</body>
+</html>

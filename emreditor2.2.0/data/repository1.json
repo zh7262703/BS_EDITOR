@@ -1,0 +1,27 @@
+{
+  "Data":[
+    { "id": 2, "pId": 0, "name": "[五官科]", "open": true },
+    { "id": 20, "pId": 2, "name": "[口腔科学]", "open": true },
+    { "id": 201, "pId": 20, "name": "牙周炎", "file": "http://www.emreditor.cn/repositorydata.json" },
+    { "id": 206, "pId": 20, "name": "根尖周炎", "file": "http://www.emreditor.cn/repositorydata2.json" },
+    { "id": 207, "pId": 20, "name": "口腔念珠菌病", "file": "design/date" },
+    { "id": 208, "pId": 20, "name": "智齿冠周炎", "file": "design/radio" },
+
+    { "id": 1, "pId": 0, "name": "[临床常用诊断技术] ", "open": true },
+    { "id": 101, "pId": 1, "name": "一般检查", "file": "demo/design" },
+    { "id": 102, "pId": 1, "name": "头部检查", "file": "demo/cyjl" },
+    { "id": 103, "pId": 1, "name": "颈部检查", "file": "demo/bcl" },
+    { "id": 104, "pId": 1, "name": "胸部检查", "file": "demo/ryhlpgd" },
+    { "id": 105, "pId": 1, "name": "腹部检查", "file": "demo/jyztd" },
+    { "id": 106, "pId": 1, "name": "生殖器 肛门及直肠检查", "file": "demo/Barthel" },
+    { "id": 107, "pId": 1, "name": "脊柱及四肢检查", "file": "demo/wts" },
+
+
+
+    { "id": 3, "pId": 0, "name": "[传染病]", "open": true },
+    { "id": 301, "pId": 3, "name": "细菌性痢疾", "file": "edit/pz" },
+    { "id": 302, "pId": 3, "name": "腮腺炎", "file": "edit/header" },
+    { "id": 303, "pId": 3, "name": "血吸虫病", "file": "edit/line" },
+    { "id": 304, "pId": 3, "name": "流行性感冒 ", "file": "edit/print" }
+  ]
+}

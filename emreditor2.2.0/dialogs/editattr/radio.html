@@ -1,0 +1,391 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+
+<head>
+    <title>单选框</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <link href="../../third-party/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="jscolor/jscolor.min.js"></script>
+    <script src="../../third-party/jquery-1.10.2.min.js"></script>
+    <script src="../internal.js"></script>
+
+    <style type="text/css">
+        .btn-small {
+            margin-right: 5px;
+        }
+
+        .btn-group {
+            margin-top: 10px;
+        }
+
+        .table td {
+            padding-right: 0px !important;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="content">
+        <input id="hidname" type="hidden" />
+        <table class="table table-bordered table-striped">
+            <tr>
+                <td><span>控件名称</span><span class="label label-important">*</span></td>
+                <td>
+                    <input id="orgname" placeholder="必填项" type="text" /> </td>
+            </tr>
+            <tr>
+                <td><span>控件标识</span><span class="label label-important">*</span></td>
+                <td>
+                    <input id="orgid" placeholder="必填项" type="text" /> </td>
+            </tr>
+            <tr>
+                <td>
+                    <span>排列方式</span>
+                </td>
+                <td>
+                    <label class="radio" title="选项一 选项二">
+                        <input id="orgchecked0" checked="checked" name="checked" type="radio"> 横排 </label>
+                    <label class="radio" title="选项一&#10;选项二">
+                        <input id="orgchecked1" name="checked" type="radio"> 竖排 </label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span>字体颜色</span>
+                </td>
+                <td>
+                    <input type="text" id="txtCOLOR" class="jscolor" placeholder="颜色" value="000000">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span>数据源</span>
+                </td>
+                <td>
+                    <label class="checkbox inline">
+                        <input id="txtRemote" type="checkbox" /> 是否绑定服务器API数据源 </label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span>元素控制</span>
+                </td>
+                <td>
+                    <label class="checkbox inline">
+                        <input id="txtREADONLY" name="readwrite" type="checkbox" placeholder="不能删除，不能编辑" /> 只读 </label>
+                    <label class="checkbox inline">
+                        <input id="txtKEY" name="readwrite" type="checkbox" placeholder="不能删除，只能编辑" /> 关键 </label>
+                    <label class="checkbox inline" style="margin-left: 28px;">
+                        <input id="txtFREEINPUT" name="readwrite" type="checkbox" /> 自由输入 </label>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <div class="tabbable">
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="tab1">
+                                <table class="table table-hover table-condensed" id="options_table">
+                                    <tr>
+                                        <th>选中</th>
+                                        <th>选项值</th>
+                                        <th>文本</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </table>
+                                <a title="添加选项" class="btn btn-primary" onclick="fnAdd();">添加选项</a>
+                            </div>
+                            <div class="tab-pane" id="tab2">
+                                <input type="text" placeholder="API地址" style="width:90%;" id="txtREMOTEURL" />
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</body>
+<script>
+    function createElement(type, name) {
+        var element = null;
+        try {
+            element = document.createElement('<' + type + ' name="' + name + '">');
+        } catch (e) {}
+        if (element == null) {
+            element = document.createElement(type);
+            element.name = name;
+        }
+        return element;
+    }
+
+
+    //checkboxs
+    function isIE() {
+        if (window.attachEvent) {
+            return true;
+        }
+        return false;
+    }
+    //moveRow在IE支持而在火狐里不支持！以下是扩展火狐下的moveRow
+    if (!isIE()) {
+        function getTRNode(nowTR, sibling) {
+            while (nowTR = nowTR[sibling])
+                if (nowTR.tagName == 'TR') break;
+            return nowTR;
+        }
+        if (typeof Element != 'undefined') {
+            Element.prototype.moveRow = function (sourceRowIndex, targetRowIndex) //执行扩展操作
+            {
+                if (!/^(table|tbody|tfoot|thead)$/i.test(this.tagName) || sourceRowIndex === targetRowIndex)
+                    return false;
+                var pNode = this;
+                if (this.tagName == 'TABLE') pNode = this.getElementsByTagName('tbody')[
+                    0]; //firefox会自动加上tbody标签，所以需要取tbody，直接table.insertBefore会error
+                var sourceRow = pNode.rows[sourceRowIndex],
+                    targetRow = pNode.rows[targetRowIndex];
+                if (sourceRow == null || targetRow == null) return false;
+                var targetRowNextRow = sourceRowIndex > targetRowIndex ? false : getTRNode(targetRow, 'nextSibling');
+                if (targetRowNextRow === false) pNode.insertBefore(sourceRow, targetRow); //后面行移动到前面，直接insertBefore即可
+                else { //移动到当前行的后面位置，则需要判断要移动到的行的后面是否还有行，有则insertBefore，否则appendChild
+                    if (targetRowNextRow == null) pNode.appendChild(sourceRow);
+                    else pNode.insertBefore(sourceRow, targetRowNextRow);
+                }
+            }
+        }
+    }
+
+    /*删除tr*/
+    function fnDeleteRow(obj) {
+        var oTable = document.getElementById("options_table");
+        while (obj.tagName != 'TR') {
+            obj = obj.parentNode;
+        }
+        oTable.deleteRow(obj.rowIndex);
+    }
+    /*上移*/
+    function fnMoveUp(obj) {
+        var oTable = document.getElementById("options_table");
+        while (obj.tagName != 'TR') {
+            obj = obj.parentNode;
+        }
+        var minRowIndex = 1;
+        var curRowIndex = obj.rowIndex;
+        if (curRowIndex - 1 >= minRowIndex) {
+            oTable.moveRow(curRowIndex, curRowIndex - 1);
+        }
+
+    }
+    /*下移*/
+    function fnMoveDown(obj) {
+        var oTable = document.getElementById("options_table");
+        while (obj.tagName != 'TR') {
+            obj = obj.parentNode;
+        }
+        var maxRowIndex = oTable.rows.length;
+        var curRowIndex = obj.rowIndex;
+        if (curRowIndex + 1 < maxRowIndex) {
+            oTable.moveRow(curRowIndex, curRowIndex + 1);
+        }
+    }
+
+    /*生成tr*/
+    function fnAddComboTr(gName, obj) {
+        var oTable = document.getElementById('options_table');
+        var new_tr_node = oTable.insertRow(oTable.rows.length);
+        var new_td_node0 = new_tr_node.insertCell(0),
+            new_td_node1 = new_tr_node.insertCell(1),
+            new_td_node2 = new_tr_node.insertCell(2);
+        new_td_node3 = new_tr_node.insertCell(3);
+
+        var sChecked = '';
+        if (obj.checked) sChecked = 'checked="checked"';
+        if (!obj.name) obj.name = '';
+        if (!obj.value) obj.value = '';
+        var nodeT = obj.nextSibling ? obj.nextSibling.innerHTML : "";
+        new_td_node0.innerHTML = '<td><input type="radio" ' + sChecked + ' name="' + gName + '"></td>';
+        new_td_node1.innerHTML = '<td><input style="width:60px;" type="text" value="' + obj.value + '" name="' + gName +
+            '" placeholder="选项值"></td>';
+        new_td_node2.innerHTML = '<td><input type="text" value="' + nodeT + '" name="' + gName +
+            '" placeholder="文本"></td>';
+        new_td_node3.innerHTML =
+            '<td><div class="btn-group"><a title="上移" class="btn btn-small btn-warning" href="javascript:void(0);" onclick="fnMoveUp(this)"><i class="icon-white icon-arrow-up"></i></a>&nbsp;&nbsp;<a title="下移" class="btn btn-small btn-warning" href="javascript:void(0);" onclick="fnMoveDown(this)"><i class="icon-white icon-arrow-down"></i></a><a title="删除" class="btn btn-small btn-info" href="javascript:void(0);" onclick="fnDeleteRow(this)"><i class="icon-ban-circle"></i></a></div></td>';
+        return true;
+    }
+
+    function fnAdd() {
+        var dName = $G('hidname').value;
+        if (!dName) dName = 'NewField';
+        fnAddComboTr(dName, {
+            "checked": false,
+            "name": 'NewField',
+            "value": ''
+        });
+    }
+    /*组合checkbox*/
+    function fnParseOptions(gName, gChecked, json) {
+        var oTable = document.getElementById('options_table');
+        var nTr = oTable.getElementsByTagName('tr'),
+            caninput = 0,
+            trLength = nTr.length,
+            html = "";
+        if (json.READONLY == 0 && json.KEY == 0 && json.FREEINPUT == 1) {
+            caninput = 1;
+        }
+        html = '<span class="tag-marker">[</span>';
+        for (var i = 0; i < trLength; i++) {
+            var inputs = nTr[i].getElementsByTagName('input');
+
+            if (inputs.length > 0) {
+                if (!inputs[1].value && !inputs[2].value) continue;
+                var sChecked = '';
+                if (inputs[0].checked) sChecked = 'checked'; // 在ie中，checked的值是空的 ,兼容IE 不要改为 checked="checked"  
+                html += '<input style="-webkit-user-modify: read-only;" name="' + gName + '" value="' + inputs[1]
+                    .value + '" ' + sChecked +
+                    ' type="radio"/><span ' + ((caninput == 0) ? ' contenteditable="false" ' :
+                        ' contenteditable="true" ') + ' class="radio-value">' +
+                    inputs[2].value.trim() + '</span>&nbsp;';
+                if (gChecked == 'orgchecked1') //竖排
+                    html += '<br/>';
+            }
+        }
+        html += '<span class="tag-marker">]</span>';
+        //alert(html);
+        return html;
+
+    }
+
+    var oNode = null,
+        thePlugins = 'radios';
+    window.onload = function () {
+        $('#txtRemote').change(function () {
+            if ($(this).is(":checked")) {
+                $('#tab1').removeClass('active');
+                $('#tab2').addClass('active');
+            } else {
+                $('#tab1').addClass('active');
+                $('#tab2').removeClass('active');
+            }
+        });
+        if (!UE.plugins[thePlugins].editdom) {
+            thePlugins = 'editattr';
+        }
+        if (UE.plugins[thePlugins].editdom) {
+            oNode = UE.plugins[thePlugins].editdom;
+            var json = JSON.parse(oNode.getAttribute('tag-model'));
+            var gTitle = oNode.getAttribute('title').replace(/&quot;/g, "\"");
+            var gID = oNode.getAttribute('data-id').replace(/&quot;/g, "\"");
+            //var gName = oNode.getAttribute('name').replace(/&quot;/g, "\"");
+            $G('orgname').value = gTitle;
+            $G('orgid').value = gID;
+            //$G('hidname').value = gName;
+            var checked = oNode.getAttribute('orgchecked');
+            checked == 'orgchecked1' ? $G('orgchecked1').checked = true : $G('orgchecked0').checked = true;
+            if (json.FREEINPUT == 1) {
+                $G('txtFREEINPUT').checked = true;
+            }
+            if (json.READONLY == 1) {
+                $G('txtREADONLY').checked = true;
+            }
+            if (json.KEY == 1) {
+                $G('txtKEY').checked = true;
+            }
+            var inputTags = oNode.getElementsByTagName('input');
+            var length = inputTags.length;
+            var aInputs = [];
+            for (var i = 0; i < length; i++) {
+                if (inputTags[i].type == 'radio')
+                    fnAddComboTr(gID, inputTags[i]);
+            }
+
+
+        }
+    }
+    dialog.oncancel = function () {
+        if (UE.plugins[thePlugins].editdom) {
+            delete UE.plugins[thePlugins].editdom;
+        }
+    };
+    dialog.onok = function () {
+        if ($G('orgname').value == '') {
+            alert('控件名称不能为空');
+            return false;
+        }
+        var gTitle = $G('orgname').value.replace(/\"/g, "&quot;");
+        var gID = $G('orgid').value.replace(/\"/g, "&quot;");
+        var gChecked = 'orgchecked0';
+        if ($G('orgchecked1').checked) gChecked = 'orgchecked1';
+
+        var json = {
+            TYPE: 'radios',
+            READONLY: 0,
+            FREEINPUT: 0,
+            KEY: 0
+        };
+        if ($G('txtFREEINPUT').checked) {
+            json.FREEINPUT = 1;
+        }
+        if ($G('txtREADONLY').checked) {
+            json.READONLY = 1;
+        }
+        if ($G('txtKEY').checked) {
+            json.KEY = 1;
+        }
+
+
+        if (!oNode) {
+            try {
+                var d = new Date();
+                var jsonid = d.valueOf();
+
+                var options = fnParseOptions(gID, gChecked, json);
+                if (!options) {
+                    alert('请添加选项');
+                    return false;
+                }
+
+                if (!oNode) {
+                    oNode = createElement('span');
+                }
+
+                oNode.setAttribute('title', gTitle);
+                oNode.setAttribute('tag-model', JSON.stringify(json));
+                oNode.setAttribute("data-id", gID);
+                oNode.setAttribute("class", "tag-checkradio on");
+                oNode.setAttribute("contenteditable", "false");
+                oNode.innerHTML = options;
+                editor.execCommand('insertHtml', oNode.outerHTML + '&nbsp');
+                editor.fireEvent('setvalidate');
+                return true;
+            } catch (e) {
+                try {
+                    editor.execCommand('error');
+                } catch (e) {
+                    alert('控件异常，请联系管理员！');
+                }
+                return false;
+            }
+        } else {
+            var oldjson = JSON.parse(oNode.getAttribute('tag-model'));
+            if (oldjson.relationdata && oldjson.relationcondition) {
+                json.relationdata = oldjson.relationdata;
+                json.relationcondition = oldjson.relationcondition;
+            }
+            oNode.setAttribute('title', gTitle);
+            oNode.setAttribute('orgchecked', gChecked);
+            oNode.setAttribute('tag-model', JSON.stringify(json));
+            oNode.setAttribute("data-id", gID);
+            oNode.setAttribute("contenteditable", "false");
+            oNode.setAttribute("class", "tag-checkradio on");
+            oNode.innerHTML = fnParseOptions(gID, gChecked, json);
+            oNode.outerHTML += '&nbsp';
+            delete UE.plugins[thePlugins].editdom;
+            editor.fireEvent('setvalidate');
+            return true;
+        }
+
+    };
+
+</script>
+
+</html>

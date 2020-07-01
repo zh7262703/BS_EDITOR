@@ -1,0 +1,151 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+
+<head>
+    <title>单选框</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <link href="tree/css/zTreeStyle/zTreeStyle.css" rel="stylesheet" />
+    <link href="../../third-party/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="../../third-party/jquery-1.10.2.min.js"></script>
+    <script src="tree/js/jquery.ztree.core.js"></script>
+    <script src="tree/js/jquery.ztree.excheck.js"></script>
+    <script src="../internal.js"></script>
+
+    <style type="text/css">
+        .btn-small {
+            margin-right: 5px;
+        }
+
+        .btn-group {
+            margin-top: 10px;
+        }
+
+        .table td {
+            padding-right: 0px !important;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="content">
+        <input id="hidname" type="hidden" />
+        <table class="table table-bordered table-striped">
+            <tr>
+                <td><span>选择</span></td>
+                <td style="height: 350px;">
+                    <ul id="tree" class="ztree" style="width:210px; overflow:auto;"></ul>
+            </tr>
+            <tr>
+                <td><span>触发条件</span><span class="label label-important">*</span></td>
+                <td>
+                    <input id="txtConditon" placeholder="如果值为true则1,false则0" type="text" /> </td>
+            </tr>
+        </table>
+    </div>
+</body>
+<script>
+    var oNode = null,
+        thePlugins = 'editattr';
+
+    var zTree;
+    var demoIframe;
+
+    var setting = {
+        check: {
+            enable: true,
+            chkStyle: "checkbox"
+        },
+        view: {
+            dblClickExpand: true,
+            showLine: true,
+            selectedMulti: true
+        },
+        data: {
+            simpleData: {
+                enable: true,
+                idKey: "id",
+                pIdKey: "pId",
+                rootPId: ""
+            }
+        },
+        callback: {
+            beforeClick: function (treeId, treeNode) {
+                var zTree = $.fn.zTree.getZTreeObj("tree");
+                if (treeNode.isParent) {
+                    zTree.expandNode(treeNode);
+                    return false;
+                }
+            }
+        }
+    };
+
+    var zNodes = [];
+
+    $(document).ready(function () {
+        if (UE.plugins[thePlugins].editdom) {
+            oNode = UE.plugins[thePlugins].editdom;
+            var json = JSON.parse(oNode.getAttribute('tag-model'));
+            //var gTitle = oNode.getAttribute('title').replace(/&quot;/g, "\"");
+            //var gID = oNode.getAttribute('data-id').replace(/&quot;/g, "\"");
+            if (oNode.parentNode) {
+                zNodes.push({
+                    id: 1,
+                    pId: 0,
+                    name: "段落",
+                    open: true
+                });
+                var cnodes = oNode.parentNode.childNodes;
+                for (var i = 0; i < cnodes.length; i++) {
+                    var cnode = cnodes[i];
+                    if ($(cnode).hasClass("fragment")) {
+                        var fraName = $(cnode).attr("frame-name");
+                        var fraId = $(cnode).attr("frame-id");
+                        zNodes.push({
+                            id: fraId,
+                            pId: 1,
+                            name: fraName
+                        });
+                    }
+                }
+            }
+        }
+
+        var t = $("#tree");
+        t = $.fn.zTree.init(t, setting, zNodes);
+        demoIframe = $("#testIframe");
+        //demoIframe.bind("load", loadReady);
+        var zTree = $.fn.zTree.getZTreeObj("tree");
+        //zTree.selectNode(zTree.getNodeByParam("id", 101));
+
+
+    });
+
+    dialog.oncancel = function () {
+        if (UE.plugins[thePlugins].editdom) {
+            delete UE.plugins[thePlugins].editdom;
+        }
+    };
+    dialog.onok = function () {
+        if (oNode) {
+            var json = JSON.parse(oNode.getAttribute('tag-model'));
+            var treeObj = $.fn.zTree.getZTreeObj("tree");
+            var nodes = treeObj.getCheckedNodes(true);
+            var relationdata = [];
+            for (var i = 0; i < nodes.length; i++) {
+                if (!nodes[i].isParent) {
+                    relationdata.push(nodes[i].id);
+                }
+            }
+            json.relationdata = relationdata;
+            json.relationcondition = $G('txtConditon').value || '';
+            oNode.setAttribute('tag-model', JSON.stringify(json));
+            delete UE.plugins[thePlugins].editdom;
+            return true;
+        }
+    };
+
+</script>
+
+</html>

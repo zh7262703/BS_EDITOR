@@ -1,0 +1,97 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <!-- 支持移动触摸设备 -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1, minimal-ui">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script type="text/javascript" src="../internal.js"></script>
+    <!-- CSS -->
+    <!-- 字体很棒的CSS工具图标。 -->
+    <link rel="stylesheet" href="lib/font-awesome.min.css">
+    <!-- Bootstrap CSS -->
+    <link href="lib/bootstrap.min.css" rel="stylesheet">
+    <!-- UI CSS -->
+    <link href="lib/jquery-ui.min.css" rel="stylesheet">
+    <!-- Cornerstone Base CSS -->
+    <link href="lib/cornerstone.min.css" rel="stylesheet">
+    <!-- Cornerstone Demo CSS -->
+    <link href="css/cornerstoneDemo.css" rel="stylesheet">
+</head>
+
+<body>
+    <div id="wrap" style="height: 99%;">
+        <div id="main" class='main'>
+            <!-- 研究查看器标签内容模板 -->
+        </div>
+    </div>
+    <!-- Javascripts -->
+    <!-- 引入JQuery -->
+    <script src="lib/jquery.min.js"></script>
+    <!-- 引入 JQuery UI用于拖放 -->
+    <script src="lib/jquery-ui.min.js"></script>
+    <!--引入 JQuery移动触摸Hammerjs适配器-->
+    <script src="lib/hammer.min.js"></script>
+    <!-- 引入 bootstrap -->
+    <script src="lib/bootstrap.min.js"></script>
+    <!-- 引入 基础库 -->
+    <script src="lib/cornerstone.js"></script>
+    <!-- 引入 基础库  -->
+    <script src="lib/cornerstoneMath.js"></script>
+    <!-- 包括基石工具库 -->
+    <script src="lib/cornerstoneTools.js"></script>
+    <!-- 引入 cornerstoneWADOImageLoader 库 -->
+    <script src="lib/cornerstoneWADOImageLoader.js"></script>
+    <!-- 引入 cornerstoneWebImageLoader 库 -->
+    <script src="lib/cornerstoneWebImageLoader.js"></script>
+    <!-- 引入 dicom解析器  -->
+    <script src="lib/dicomParser.js"></script>
+    <!-- 加载 study -->
+    <script src="js/loadStudy.js"></script>
+    <script>
+        // 负载在HTML模板
+        var img = editor.selection.getRange().getClosedNode();
+        var dcmurl = img.getAttribute('dcm');
+        var viewportTemplate; // 视图模板
+        loadTemplate("templates/viewport.html", function(element) {
+            console.log(element);
+            viewportTemplate = element;
+        });
+
+        var studyViewerTemplate; // the study 视图模板
+        loadTemplate("templates/studyViewer.html", function(element) {
+            studyViewerTemplate = element;
+
+            var studyViewerCopy = studyViewerTemplate.clone();
+            // 构建 可见视图
+            studyViewerCopy.removeClass('hidden');
+            // 向选项卡内容添加部分
+            studyViewerCopy.appendTo('.main');
+            loadStudy(studyViewerCopy, viewportTemplate, "mrstudy.json");
+
+        });
+
+        //主要调整
+
+        function resizeMain() {
+            var height = $(window).height();
+            $('#main').height(height - 50);
+        }
+
+
+        // 调用窗口调整大小
+        $(window).resize(function() {
+            resizeMain();
+        });
+        resizeMain();
+
+
+        // 防止滚动iOS
+        document.body.addEventListener('touchmove', function(e) {
+            e.preventDefault();
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>文本输入框</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <script src="../jscolor/jscolor.min.js"></script>
+    <script src="../../third-party/jquery-1.10.2.min.js"></script>
+    <script src="../internal.js"></script>
+    <link href="../../third-party/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="content">
+        <table class="table table-bordered table-striped table-hover">
+            <tr>
+                <th><span>字体颜色</span> </th>
+                <th><span>字体大小</span> </th>
+            </tr>
+            <tr>
+                <td>
+                    <input type="text" id="txtCOLOR" class="jscolor" placeholder="颜色" value="000000">
+                </td>
+                <td>
+                    <select id="txtFontSize">
+                        <option value="10px" selected="selected">10px</option>
+                        <option value="11px">11px</option>
+                        <option value="12px">12px</option>
+                        <option value="14px">14px</option>
+                        <option value="16px">16px</option>
+                        <option value="18px">18px</option>
+                        <option value="24px">24px</option>
+                        <option value="36px">36px</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th colspan="2"><span>选择类型</span> </th>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <canvas lang="1" id="myCanvas" width="200" title="月经史" height="100" style="border:1px solid #c3c3c3;">
+                        Your browser does not support the canvas element.
+                    </canvas>
+                    <canvas lang="2" id="myCanvas2" width="200" title="月经史" height="100" style="border:1px solid #c3c3c3;">
+                        Your browser does not support the canvas element.
+                    </canvas>
+                    <canvas lang="3" id="myCanvas3" width="200" title="月经史" height="100" style="border:1px solid #c3c3c3;">
+                        Your browser does not support the canvas element.
+                    </canvas>
+                    <canvas lang="4" id="myCanvas4" width="200" title="月经史" height="100" style="border:1px solid #c3c3c3;">
+                        Your browser does not support the canvas element.
+                    </canvas>
+                    <canvas lang="5" id="myCanvas5" width="200" title="瞳孔图" height="100" style="border:1px solid #c3c3c3;">
+                        Your browser does not support the canvas element.
+                    </canvas>
+                    <canvas lang="6" id="myCanvas6" width="200" title="光定位" height="100" style="border:1px solid #c3c3c3;">
+                        Your browser does not support the canvas element.
+                    </canvas>
+                    <canvas lang="7" id="myCanvas7" width="200" title="胎心图" height="100" style="border:1px solid #c3c3c3;">
+                        Your browser does not support the canvas element.
+                    </canvas>
+                </td>
+            </tr>
+            <tr>
+                <th colspan="2"><span>自定义表达式</span> </th>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <textarea id="customJs" style="width: 480px;height: 68px;"> var custom = document.getElementById("custom"); var cxtcustom = custom.getContext("2d"); cxtcustom.moveTo(10, 10); cxtcustom.lineTo(188, 85); cxtcustom.moveTo(10, 85); cxtcustom.lineTo(188, 10); cxtcustom.stroke(); cxtcustom.font = "14px Courier New"; cxtcustom.fillStyle = "red"; cxtcustom.fillText("Value1", 10, 50); cxtcustom.fillText("Value2", 62, 30); cxtcustom.fillText("Value3", 62, 80); cxtcustom.fillText("Value4", 120, 50);
+                    </textarea>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <button type="button" class="btn btn-success" onclick="test();">测试</button>
+                </td>
+                <td style="text-align: center;">
+                    <canvas lang="custom" id="custom" width="200" title="自定义" height="100" style="border:1px solid #c3c3c3;">
+                        Your browser does not support the canvas element.
+                    </canvas>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <script src="../../third-party/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript">
+    function clear() {
+        var c = document.getElementById("myCanvas");
+        var cxt = c.getContext("2d");
+        var c2 = document.getElementById("myCanvas2");
+        var cxt2 = c2.getContext("2d");
+        var c3 = document.getElementById("myCanvas3");
+        var cxt3 = c3.getContext("2d");
+        var c4 = document.getElementById("myCanvas4");
+        var cxt4 = c4.getContext("2d");
+        var c5 = document.getElementById("myCanvas5");
+        var cxt5 = c5.getContext("2d");
+        var c6 = document.getElementById("myCanvas6");
+        var cxt6 = c6.getContext("2d");
+        var c7 = document.getElementById("myCanvas7");
+        var cxt7 = c7.getContext("2d");
+        cxt.clearRect(0, 0, c.width, c.height);
+        cxt2.clearRect(0, 0, c2.width, c2.height);
+        cxt3.clearRect(0, 0, c3.width, c3.height);
+        cxt4.clearRect(0, 0, c4.width, c4.height);
+        cxt5.clearRect(0, 0, c5.width, c5.height);
+        cxt6.clearRect(0, 0, c6.width, c6.height);
+        cxt7.clearRect(0, 0, c7.width, c7.height);
+    }
+
+    function load() {
+        var font = $G('txtFontSize').value + " Courier New";
+        var fillStyle = '#' + $G('txtCOLOR').value;
+        var c = document.getElementById("myCanvas");
+        var cxt = c.getContext("2d");
+        cxt.moveTo(10, 10);
+        cxt.lineTo(188, 85);
+        cxt.moveTo(10, 85);
+        cxt.lineTo(188, 10);
+        cxt.stroke();
+        //var c=document.getElementById("myCanvas");
+        cxt.font = font;
+        cxt.fillStyle = fillStyle;
+        cxt.fillText("Value1", 10, 50);
+        cxt.fillText("Value2", 62, 30);
+        cxt.fillText("Value3", 62, 80);
+        cxt.fillText("Value4", 120, 50);
+
+        var c2 = document.getElementById("myCanvas2");
+        var cxt2 = c2.getContext("2d");
+        cxt2.moveTo(75, 50);
+        cxt2.lineTo(115, 50);
+        cxt2.stroke();
+        //var c=document.getElementById("myCanvas");
+        cxt2.font = font;
+        cxt2.fillStyle = fillStyle;
+        cxt2.fillText("Value1", 10, 50);
+        cxt2.fillText("Value2", 62, 30);
+        cxt2.fillText("Value3", 62, 80);
+        cxt2.fillText("Value4", 120, 50);
+
+
+        var c3 = document.getElementById("myCanvas3");
+        var cxt3 = c3.getContext("2d");
+        cxt3.moveTo(0, 50);
+        cxt3.lineTo(200, 50);
+        cxt3.moveTo(100, 0);
+        cxt3.lineTo(100, 100);
+        cxt3.stroke();
+        //var c=document.getElementById("myCanvas");
+        cxt3.font = font;
+        cxt3.fillStyle = fillStyle;
+        cxt3.fillText("Value1", 10, 30);
+        cxt3.fillText("Value2", 110, 30);
+        cxt3.fillText("Value3", 10, 80);
+        cxt3.fillText("Value4", 110, 80);
+
+
+        var c4 = document.getElementById("myCanvas4");
+        var cxt4 = c4.getContext("2d");
+        cxt4.moveTo(95, 50);
+        cxt4.lineTo(165, 50);
+        cxt4.moveTo(80, 55);
+        cxt4.lineTo(95, 45);
+        cxt4.stroke();
+
+        cxt4.font = font;
+        cxt4.fillStyle = fillStyle;
+        cxt4.fillText("Value1", 10, 50);
+        cxt4.fillText("Value2", 95, 35);
+        cxt4.fillText("Value3", 95, 75);
+
+        var c5 = document.getElementById("myCanvas5");
+        var cxt5 = c5.getContext("2d");
+        cxt5.font = font;
+        cxt5.fillStyle = fillStyle;
+        cxt5.fillText("Value1", 5, 15);
+        cxt5.fillText("Value2", 135, 15);
+        cxt5.fillText("Value3", 5, 50);
+        cxt5.fillText("Value4", 70, 50);
+        cxt5.fillText("Value5", 135, 50);
+        cxt5.fillText("Value6", 5, 85);
+        cxt5.fillText("Value7", 135, 85);
+
+        var c6 = document.getElementById("myCanvas6");
+        var cxt6 = c6.getContext("2d");
+        cxt6.font = font;
+        cxt6.fillStyle = fillStyle;
+        cxt6.fillText("Value1", 5, 15);
+        cxt6.fillText("Value2", 70, 15);
+        cxt6.fillText("Value3", 135, 15);
+        cxt6.fillText("Value4", 5, 50);
+        cxt6.fillText("Value5", 70, 50);
+        cxt6.fillText("Value6", 135, 50);
+        cxt6.fillText("Value7", 5, 85);
+        cxt6.fillText("Value8", 70, 85);
+        cxt6.fillText("Value9", 135, 85);
+
+        var c7 = document.getElementById("myCanvas7");
+        var cxt7 = c7.getContext("2d");
+        cxt7.moveTo(10, 50);
+        cxt7.lineTo(23, 50);
+        cxt7.moveTo(90, 50);
+        cxt7.lineTo(110, 50);
+        cxt7.moveTo(180, 50);
+        cxt7.lineTo(195, 50);
+        cxt7.moveTo(100, 0);
+        cxt7.lineTo(100, 100);
+        cxt7.stroke();
+
+        cxt7.font = font;
+        cxt7.fillStyle = fillStyle;
+        cxt7.fillText("Value1", 25, 20);
+        cxt7.fillText("Value2", 115, 20);
+
+        cxt7.fillText("Value3", 25, 55);
+        cxt7.fillText("Value4", 115, 55);
+
+        cxt7.fillText("Value5", 25, 85);
+        cxt7.fillText("Value6", 115, 85);
+    }
+
+    function test() {
+        eval($G('customJs').value);
+    }
+    load();
+    var cans = document.getElementsByTagName("canvas");
+    var innerHtml = "";
+    for (var i = 0; i < cans.length; i++) {
+        (function(i) {
+            if (cans[i]) {
+                if (cans[i].id != "custom") {
+                    domUtils.on(cans[i], 'click', function() {
+                        var font = $G('txtFontSize').value + " Courier New";
+                        var fillStyle = '#' + $G('txtCOLOR').value;
+                        var option = {
+                            style: cans[i].getAttribute("lang"),
+                            color: fillStyle,
+                            fontsize: font
+                        }
+                        editor.execCommand("formula", option);
+                        dialog.close();
+                    });
+                }
+            }
+        })(i);
+    }
+    domUtils.on($G('custom'), 'click', function() {
+        var font = $G('txtFontSize').value + " Courier New";
+        var fillStyle = '#' + $G('txtCOLOR').value;
+        var option = {
+            style: $G('custom').getAttribute("lang"),
+            js:$G("customJs").value
+        }
+        editor.execCommand("formula", option);
+        dialog.close();
+    });
+    $('#txtCOLOR').on('change', function() {
+        clear();
+        load();
+    });
+    $('#txtFontSize').on('change', function() {
+        clear();
+        load();
+    });
+
+    </script>
+</body>
+
+</html>

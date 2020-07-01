@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title></title>
+    <script type="text/javascript" src="../internal.js"></script>
+    <style type="text/css">
+        .wrapper {
+            margin: 10px auto 0;
+            font-size: 12px;
+            overflow: hidden;
+            width: 100%;
+        }
+
+        table.noBorderTable td,
+        table.noBorderTable th,
+        table.noBorderTable caption {
+            border: 1px dashed #ddd !important;
+        }
+
+        .clear {
+            clear: both;
+        }
+
+        .wrapper .left {
+            float: left;
+            margin-left: 10px;
+            ;
+        }
+
+
+        .section {
+            margin-bottom: 15px;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .section h3 {
+            font-weight: bold;
+            padding: 5px 0;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #EDEDED;
+            font-size: 12px;
+        }
+
+        .section ul {
+            list-style: none;
+            overflow: hidden;
+            clear: both;
+
+        }
+
+        .section li {
+            float: left;
+            width: 136px;
+            ;
+        }
+        .section .preview {
+            width: 220px;
+        }
+
+        .section .preview table {
+            text-align: center;
+            vertical-align: middle;
+            color: #666;
+        }
+
+        .section .preview caption {
+            font-weight: bold;
+        }
+
+        .section .preview td {
+            border-width: 1px;
+            border-style: solid;
+            height: 22px;
+        }
+
+        .section .preview th {
+            border-style: solid;
+            border-color: #DDD;
+            border-width: 2px 1px 1px 1px;
+            height: 22px;
+            background-color: #F7F7F7;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="left">
+            <div class="section">
+                <h3><var id="lang_tdStyle"></var></h3>
+                <ul>
+                    <li>
+                        <label onselectstart="return false"><input type="checkbox" id="J_left" name="style" /><var
+                                id="lang_left"></var></label>
+                    </li>
+                    <li>
+                        <label onselectstart="return false"><input type="checkbox" id="J_right" name="style" /><var
+                                id="lang_right"></var></label>
+                    </li>
+                </ul>
+                <ul>
+                    <li>
+                        <label onselectstart="return false"><input type="checkbox" id="J_top" name="style" /><var
+                                id="lang_top"></var></label>
+                    </li>
+                    <li>
+                        <label onselectstart="return false"><input type="checkbox" id="J_bottom" name="style" /><var
+                                id="lang_bottom"></var></label>
+                    </li>
+                </ul>
+                <div class="clear"></div>
+            </div>
+            <div class="section">
+                <h3><var id="lang_tdBkColor"></var></h3>
+                <ul>
+                    <li>
+                        <input type="text" id="J_tone" />
+                    </li>
+                </ul>
+                <div class="clear"></div>
+            </div>
+            <div class="section">
+                <h3><var id="lang_tdHeight"></var></h3>
+                <ul>
+                    <li>
+                        <input type="text" id="J_Height" />
+                    </li>
+                </ul>
+                <div class="clear"></div>
+            </div>
+
+            <div class="section">
+                <h3><var id="lang_color"></var></h3>
+                <ul>
+                    <li>
+                        <input type="text" class="tone" id="B_tone" readonly='readonly' />
+                    </li>
+                </ul>
+                <div class="clear"></div>
+            </div>
+            <div class="section">
+                <h3><var id="lang_borderStyle"></var></h3>
+                <ul>
+                    <li>
+                        <label class="checkbox inline">
+                            <input id="txtREQUIRED" type="checkbox" /> <var id="lang_tdRequired"></var> </label>
+                    </li>
+                </ul>
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        var tone = $G("J_tone"),
+            btone = $G("B_tone"),
+            h = $G("J_Height"),
+            c = $G("txtREQUIRED"),
+            J_left = $G("J_left"),
+            J_right = $G("J_right"),
+            J_top = $G("J_top"),
+            J_bottom = $G("J_bottom"),
+            colorPiker = new UE.ui.ColorPicker({
+                editor: editor
+            }),
+            colorPop = new UE.ui.Popup({
+                editor: editor,
+                content: colorPiker
+            }),
+            bcolorPiker = new UE.ui.ColorPicker({
+                editor: editor
+            }),
+            bcolorPop = new UE.ui.Popup({
+                editor: editor,
+                content: bcolorPiker
+            });
+        domUtils.on(tone, "click", function () {
+            colorPop.showAnchor(tone);
+        });
+        domUtils.on(document, 'mousedown', function () {
+            colorPop.hide();
+        });
+        colorPiker.addListener("pickcolor", function () {
+            tone.value = arguments[1];
+            colorPop.hide();
+        });
+        colorPiker.addListener("picknocolor", function () {
+            tone.value = "";
+            colorPop.hide();
+        });
+
+        domUtils.on(btone, "click", function () {
+            bcolorPop.showAnchor(tone);
+        });
+        domUtils.on(document, 'mousedown', function () {
+            bcolorPop.hide();
+        });
+        bcolorPiker.addListener("pickcolor", function () {
+            btone.value = arguments[1];
+            bcolorPop.hide();
+        });
+        bcolorPiker.addListener("picknocolor", function () {
+            btone.value = "";
+            bcolorPop.hide();
+        });
+        dialog.onok = function () {
+            var option = {
+                bgcolor:tone.value,
+                height:h.value,
+                isreadonly:c.checked ? false : true,
+                left:J_left.checked,
+                right:J_right.checked,
+                top:J_top.checked,
+                bottom:J_bottom.checked,
+                bcolor:btone.value
+            }
+            editor.execCommand("edittd", option);
+        };
+
+        var start = editor.selection.getStart(),
+            cell = start && domUtils.findParentByTagName(start, ["td", "th"], true);
+        if (cell) {
+            var color = domUtils.getComputedStyle(cell, 'background-color');
+            var bdcolor = domUtils.getComputedStyle(cell, 'border-color');
+            var height = domUtils.getComputedStyle(cell, 'height');
+            var left = domUtils.getComputedStyle(cell, 'border-left-width');
+            var right = domUtils.getComputedStyle(cell, 'border-right-width');
+            var top = domUtils.getComputedStyle(cell, 'border-left-width');
+            var bottom = domUtils.getComputedStyle(cell, 'border-bottom-width');
+            if (/^#/.test(color)) {
+                tone.value = color;                
+            }
+            h.value = height;
+            if (/^#/.test(bdcolor)) {
+                //btone.value = bdcolor;
+            }
+            if (cell.getAttribute("contenteditable")) {
+                c.checked = cell.getAttribute("contenteditable") == "true" ? false : true;
+            } else {
+                c.checked = false;
+            }
+            if(left=="1px"){
+                J_left.checked = true;
+                btone.value = domUtils.getComputedStyle(cell,'border-left-color');
+            }
+            if(right=="1px"){
+                J_right.checked = true;
+                btone.value = domUtils.getComputedStyle(cell,'border-right-color');
+            }
+            if(top=="1px"){
+                J_top.checked = true;
+                btone.value = domUtils.getComputedStyle(cell,'border-top-color');
+            }
+            if(bottom=="1px"){
+                J_bottom.checked = true;
+                btone.value = domUtils.getComputedStyle(cell,'border-bottom-color');
+            }
+        }
+
+    </script>
+</body>
+
+</html>

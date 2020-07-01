@@ -1,0 +1,248 @@
+body {
+    margin: 0;
+    background-color: #F1F1F1;
+}
+
+.toolbar {
+    z-index: 1004 !important;
+    position: fixed !important;
+    left: 0px;
+    top: 0px;
+}
+
+.bs .bs-editor {
+    margin: 0 auto;
+    margin-top: 148px;
+}
+
+.bs .bs-editor .bs-editor-content {
+    margin-top: 88px;
+}
+
+.edui-default .edui-editor {
+    border: 1px solid #d4d4d4;
+    background-color: white;
+    position: relative;
+    overflow: visible;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    border-radius: 0px;
+}
+
+.edui-default .edui-editor {
+    border: none;
+    border-radius: 0;
+    -webkit-border-radius: 0;
+    padding: 0px;
+}
+
+.FlexBoxAppContainer {
+    position: relative;
+    flex-flow: row;
+    flex: 1 1 auto;
+    display: flex;
+}
+
+div.Frame.cui-exth.FlexBoxLayout {
+    position: relative;
+    flex: 1 1 auto;
+    flex-flow: column;
+    display: flex;
+    -ms-flex: 1 1 auto;
+    -ms-flex-direction: column;
+    display: -ms-flexbox;
+    top: 0;
+}
+
+div.Frame.cui-exth {
+    height: auto;
+    width: auto;
+    top: 50px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+}
+
+div.Frame.FlexBoxLayout {
+    position: relative;
+    flex: 1 1 auto;
+    flex-flow: column;
+    display: flex;
+    -ms-flex: 1 1 auto;
+    -ms-flex-direction: column;
+    display: -ms-flexbox;
+    top: 0;
+}
+
+div.Frame {
+    top: 50px;
+}
+
+div.Frame {
+    border: none;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    min-width: 640px;
+    min-height: 200px;
+}
+
+div.InnerFrame {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-flow: column;
+    flex: 1 1 auto;
+    display: -ms-flexbox;
+    -ms-flex-flow: column;
+    -ms-flex: 1 1 auto;
+}
+
+.cui-exth .Toolbar {
+    overflow: visible;
+}
+
+.Toolbar.FlexBoxLayout {
+    position: relative;
+    flex: 0 1 auto;
+    -ms-flex: 0 1 auto;
+}
+
+.Toolbar {
+    position: relative;
+}
+
+.Toolbar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+}
+
+.DocumentPanel.FlexBoxLayout {
+    position: relative;
+    flex: 1 1 auto;
+    -ms-flex: 1 1 auto;
+}
+
+.DocumentPanel {
+    bottom: 0;
+}
+
+.DocumentPanel {
+    position: absolute;
+    left: 0;
+    right: 0;
+    color: #000000;
+}
+
+.DocumentPanelContent {
+    border: 2px solid transparent;
+    border-top: 0;
+    border-bottom: 0;
+}
+
+.DocumentPanelContent,
+.DocumentPanelContentFocused,
+.ViewPanelContainer {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.DocumentPanelContent,
+.DocumentPanelContentFocused,
+.ViewPanelContainer {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.ViewPanel {
+    -webkit-tap-highlight-color: transparent;
+    z-index: 0;
+    background-color: transparent !important;
+}
+
+.InteractiveView {
+    background-color: window;
+}
+
+.ViewPanel,
+.ViewPanelLoading {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.ViewPanel {
+    direction: ltr;
+    overflow: hidden;
+    color: WindowText;
+    outline-style: none;
+}
+
+div.SingleOutlineLayout div.View {
+    border: hidden 1px Red;
+    min-width: 1.5in;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding-bottom: 0.375in;
+    display: inline-block;
+    position: relative;
+}
+
+.PageContentOrigin {
+    top: 19px;
+    position: absolute;
+    z-index: 3;
+    width: 100%;
+}
+
+div.View {
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    top: 0;
+    position: relative;
+    border-color: #ababab;
+    border-left-style: solid;
+    border-right-style: solid;
+    color: WindowText;
+    background-color: window;
+}
+
+div.View {
+    direction: ltr;
+    border-width: 1px;
+    width: 793px;
+    border-top-style: solid;
+    border-bottom-style: none;
+}
+
+div.ViewLine {
+    border: hidden 1px Red;
+    min-width: 1.5in;
+    height: 510px;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding-bottom: 0.375in;
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
+div.ViewContent {
+    padding: 0;
+    height: 100%;
+    background-color: transparent;
+}

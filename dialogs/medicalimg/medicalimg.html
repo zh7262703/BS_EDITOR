@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script type="text/javascript" src="../internal.js"></script>
+    <link rel="stylesheet" type="text/css" href="medicalimg.css">
+    <script src="../jscolor/jscolor.js"></script>
+    <script src="../../third-party/jquery-1.10.2.min.js"></script>
+    <link href="../../third-party/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="main" id="J_wrap">
+        <div class="hot">
+            <div class="drawBoard border_style1">
+                <canvas id="J_brushBoard" class="brushBorad"></canvas>
+            </div>
+        </div>
+        <div class="drawToolbar border_style1">
+            <div id="J_colorBar" class="colorBar"></div>
+            <label>填充颜色</label>
+            <input width="150px" type="text" id="txtFillCOLOR" class="jscolor" placeholder="颜色" value="000000">
+            <label>字体颜色</label>
+            <input width="150px" type="text" id="txtFontCOLOR" class="jscolor" placeholder="颜色" value="000000">
+            <div id="J_brushBar" class="sectionBar">
+                <a href="javascript:void(0)" class="" onclick="scrawl.InsertCircle()">圆形</a>
+                <a href="javascript:void(0)" class="" onclick="scrawl.InsertRect()">方形</a>
+                <a href="javascript:void(0)" class="" onclick="scrawl.InsertLine()">直线</a>
+                <a href="javascript:void(0)" class="" onclick="scrawl.InsertTriangle()">三角形</a>
+            </div>
+            <div id="J_eraserBar" class="sectionBar">
+                <input type="text" id="txt" placeholder="标注文本">
+                <a href="javascript:void(0)" class="" onclick="scrawl.InsertText()">文本</a>
+                <a href="javascript:void(0)" class="" onclick="scrawl.InsertTextbox()">文本框</a>
+            </div>
+            <div class="sectionBar">
+
+            </div>
+            <div class="sectionBar">
+                <a href="javascript:void(0)" class="" onclick="scrawl.Remove()">选定</a>
+                <a href="javascript:void(0)" class="" onclick="scrawl.Clear()">清除</a>
+            </div>
+        </div>
+    </div>
+    <div id="J_maskLayer" class="maskLayerNull"></div>
+    <script src="../../third-party/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="fabric.js"></script>
+
+    <script type="text/javascript">
+        var scrawl;
+
+        $(function () {
+            scrawl = {
+                InsertRect: function () {
+                    var Rect = new fabric.Rect({
+                        left: 100,
+                        top: 100,
+                        fill: '#'+$("#txtFillCOLOR").val(),
+                        width: 20,
+                        height: 20
+                    });
+                    canvas.add(Rect);
+                },
+                InsertTriangle: function () {
+                    var Triangle = new fabric.Triangle({
+                        width: 20, height: 30, fill: $("#txtFillCOLOR").val(), left: 50, top: 50
+                    });
+                    canvas.add(Triangle);
+                },
+                InsertCircle: function () {
+                    var Circle = new fabric.Circle({
+                        radius: 20, fill: '#'+$("#txtFillCOLOR").val(), left: 100, top: 100
+                    });
+                    canvas.add(Circle);
+                },
+                InsertLine: function () {
+                    var Line = new fabric.Line([50, 100, 200, 200], {
+                        left: 100,
+                        top: 100,
+                        stroke: '#'+$("#txtFontCOLOR").val(),
+                    });
+                    canvas.add(Line);
+                },
+                InsertText: function () {
+                    var Text = new fabric.Text($("#txt").val(), {
+                        left: 100,
+                        top: 100,
+                        fontFamily: 'helvetica',
+                        fill: '#'+$("#txtFontCOLOR").val(),
+                        fontSize: 20
+                    });
+                    canvas.add(Text);
+                },
+                InsertTextbox: function () {
+                    var text = '请修改';
+
+                    var textSample = new fabric.Textbox(text, {
+                        fontSize: 20,
+                        left: 100,
+                        top: 100,
+                        fontFamily: 'helvetica',
+                        angle: 45,
+                        fill: '#'+$("#txtFontCOLOR").val(),
+                        fontWeight: '',
+                        originX: 'left',
+                        width: 300,
+                        hasRotatingPoint: true,
+                        centerTransform: true
+                    });
+
+                    canvas.add(textSample);
+                },
+                Clear: function () {
+                    var activeObjects = canvas.getActiveObjects();
+                    canvas.discardActiveObject()
+                    if (activeObjects.length) {
+                        canvas.remove.apply(canvas, activeObjects);
+                    }
+                },
+                Remove: function () {
+                    var activeObjects = canvas.getActiveObjects();
+                    canvas.discardActiveObject()
+                    if (activeObjects.length) {
+                        canvas.remove.apply(canvas, activeObjects);
+                    }
+                },
+                ToImg: function () {
+                    if (!fabric.Canvas.supports('toDataURL')) {
+                        alert('This browser doesn\'t provide means to serialize canvas to an image');
+                    }
+                    else {
+                        var data = canvas.toDataURL({ format: 'png' });
+                        console.log(data);
+                    }
+
+                },
+                RasterizeJSON: function () {
+                    console.log(JSON.stringify(canvas));
+                },
+                LoadJSON: function (json) {
+                    canvas.loadFromJSON(json, function () {
+                        canvas.renderAll();
+                    });
+                }
+            }
+            var img = editor.selection.getRange().getClosedNode();
+            var src = $(img).attr("_src"),m=$(img).attr("m-model");
+            var h = img.offsetHeight, w = img.offsetWidth;
+            //$("#J_brushBoard").width(w).height(h);
+            //$("#J_brushBoard").css("width", w + "px");
+            //$("#J_brushBoard").css("height", h + "px");
+
+            var canvas = new fabric.Canvas('J_brushBoard', { widht: 160, height: 160 });
+
+            canvas.setWidth(w);
+            canvas.setHeight(h);
+            canvas.setBackgroundImage(src, canvas.renderAll.bind(canvas), { crossOrigin: 'anonymous' });
+            if(m && m !==''){
+                scrawl.LoadJSON(m);
+            }
+
+            dialog.onok = function () {
+                img.src = canvas.toDataURL({ format: 'png' });
+                $(img).attr("m-model", JSON.stringify(canvas));
+            };
+            dialog.oncancel = function () {
+            };
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>日期输入框</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    
+    <link href="../../third-party/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="../internal.js"></script>
+</head>
+
+<body>
+    <div class="content">
+        <tbody>
+            <div>
+                <table class="table table-bordered table-striped table-hover">
+                    <tbody>
+                        <tr>
+                            <th colspan="2"><span>自定义表达式</span> </th>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <textarea id="customJs" style="width: 550px;height: 118px;"> 
+                                </textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <button type="button" class="btn btn-success" onclick="test();">测试</button>
+                            </td>
+                            <td style="text-align: center;">
+                                <canvas lang="custom" id="custom" width="200" title="自定义" height="100" style="border:1px solid #c3c3c3;">
+                                    Your browser does not support the canvas element.
+                                </canvas>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <hr>
+            </div>
+        </tbody>
+    </div>
+</body>
+<script type="text/javascript">
+    function test() {
+        eval($G('customJs').value);
+    }
+    (function(UE) {
+    var oNode = null;
+    thePlugins = 'expressioncustom';
+    var json = '';
+    //初始化加载之前编辑的数据
+    window.onload = function() {
+        var can = editor.selection.getRange().getClosedNode();
+        if (UE.plugins[thePlugins].editdom) {
+            oNode = UE.plugins[thePlugins].editdom;
+            var js = oNode.getAttribute('can-model');
+
+            $G('customJs').value = js;
+        }
+    };
+
+    dialog.oncancel = function() {
+        if (oNode) {
+            delete UE.plugins[thePlugins].editdom;
+        }
+    };
+    dialog.onok = function() {
+        oNode.setAttribute('can-model', $G('customJs').value);
+        editor.fireEvent("ready");
+    };
+})(UE);
+</script>
+</html>

@@ -1,0 +1,263 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+
+<head>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <script type="text/javascript" src="../internal.js"></script>
+    <link href="../../third-party/jsgrid-1.5.3/jsgrid.min.css" rel="stylesheet" />
+    <link href="../../third-party/jsgrid-1.5.3/jsgrid-theme.min.css" rel="stylesheet" />
+    <script src="../../third-party/jquery-1.10.2.min.js"></script>
+    <script src="../../third-party/jsgrid-1.5.3/jsgrid.min.js"></script>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            height: 100%;
+        }
+        
+        body {
+            height: 100%;
+            color: #262626;
+            font-family: 'Helvetica Neue Light', 'Open Sans', Helvetica;
+            font-size: 14px;
+            font-weight: 300;
+            padding: 1px;
+        }
+        
+        h1 {
+            margin: 0 0 8px 0;
+            font-size: 24px;
+            font-family: 'Helvetica Neue Light', 'Open Sans', Helvetica;
+            font-weight: 300;
+        }
+        
+        h2 {
+            margin: 16px 0 8px 0;
+            font-size: 18px;
+            font-family: 'Helvetica Neue Light', 'Open Sans', Helvetica;
+            font-weight: 300;
+        }
+        
+        ul {
+            list-style: none;
+        }
+        
+        a {
+            color: #2ba6cb;
+            text-decoration: none;
+        }
+        
+        a:hover {
+            text-decoration: underline;
+            color: #258faf;
+        }
+        
+        input,
+        button,
+        select {
+            font-family: 'Helvetica Neue Light', 'Open Sans', Helvetica;
+            font-weight: 300;
+            font-size: 14px;
+            padding: 2px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="jsGrid"></div>
+    <script type="text/javascript">
+        (function(UE) {
+            var oNode = null,
+                thePlugins = 'select';
+            if (UE.plugins[thePlugins].editdom) {
+                oNode = UE.plugins[thePlugins].editdom;
+            }
+            var oNodetag = JSON.parse(oNode.parentNode.getAttribute('tag-model')).ID
+    
+            // console.log('oNodetag', oNodetag)
+            for(let i of oNode.parentNode.parentNode.parentElement.parentElement.children){
+                for(let k of i.children){
+                    // console.log('kkkkkkggggggg', k.getAttribute('tag-model'))&& 
+                    // console.log('kkkkkk', k)&& 
+                    if(k.getAttribute('tag-model') ){
+                        // console.log('111111111111111111', k.getAttribute('tag-model'))
+                        if(JSON.parse(k.getAttribute('tag-model')).TAG == oNodetag){
+                            var oNodespan = k.children[1]
+                        }
+                    }else{
+                        for(let j of k.children){
+                            if(j.getAttribute('tag-model') ){
+                                // console.log('2222222222222222222', j.getAttribute('tag-model'))
+                                if(JSON.parse(j.getAttribute('tag-model')).TAG == oNodetag){
+                                    var oNodespan = j.children[1]
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            // console.log('oNode', oNode)
+            // console.log('oNodearry0', oNode.parentNode)
+            // console.log('oNodearry', oNode.parentNode.parentNode.parentElement.parentElement.children)
+            var initData = function() {
+                $("#jsGrid").jsGrid({
+                    width: "100%",
+
+                    filtering: true,
+                    editing: true,
+                    sorting: true,
+                    paging: true,
+                    autoload: true,
+
+                    pageSize: 15,
+                    pageButtonCount: 5,
+
+                    deleteConfirm: "Do you really want to delete the client?",
+
+
+                    controller: {
+                        loadData: function(filter) {
+                            var clientdata = newdata;
+
+                            return $.grep(clientdata, function(client) {
+                                return (!filter.TEXT || client.TEXT.indexOf(filter.TEXT) > -1) &&
+                                    (!filter.VALUE || client.VALUE.indexOf(filter.VALUE) > -1);
+                            });
+                            // if (val.TEXT != "") {
+                            //     clientdata = newdata.filter(data => {
+                            //         return data.TEXT === val.TEXT
+                            //     })
+                            // }
+                            // return clientdata;
+                            /*if (json.REMOTEURL) {
+                                var d = $.Deferred();
+                                var url = json.REMOTEURL.indexOf('http:') > -1 ? json.REMOTEURL : editor
+                                    .options.UEDITOR_HOME_URL + json.REMOTEURL;
+                                $.ajax({
+                                    url: url, //"http://localhost:8075/test.json",//
+                                    dataType: "json"
+                                }).done(function (response) {
+                                    d.resolve(response.List);
+                                });
+                                let newdata = d.promise()
+                                if (val.TEXT != "") {
+                                    newdata = d.promise().filter(data => {
+                                        return data.TEXT === val.TEXT
+                                    })
+                                }
+                                return newdata;
+                            } else {
+                                let newdata = json.BINDINGDATA
+                                if (val.TEXT != "") {
+                                    newdata = json.BINDINGDATA.filter(data => {
+                                        return data.TEXT === val.TEXT
+                                    })
+                                }
+                                return newdata;
+                            }*/
+                        }
+                    },
+
+                    fields: [{
+                        headerTemplate: function() {
+                            return "选择";
+                        },
+                        itemTemplate: function(_, item) {
+                            return $("<input>").attr("type", "checkbox")
+                                .prop("checked", $.inArray(item, selectedItems) > -1)
+                                .on("change", function() {
+                                    $(this).is(":checked") ? selectItem(item) :
+                                        unselectItem(
+                                            item);
+                                });
+                        },
+                        align: "center",
+                        width: 50
+                    }, {
+                        name: "TEXT",
+                        title: '文本',
+                        type: "text",
+                        width: 150,
+                        validate: "required"
+                    }, {
+                        name: "VALUE",
+                        title: '值',
+                        type: "text",
+                        width: 50
+                    }, {
+                        type: "control",
+                        modeSwitchButton: false,
+                        editButton: false,
+                        deleteButton: false
+                    }],
+                    rowClick: function(args) {},
+                });
+            }
+            var json = JSON.parse(oNode.parentNode.getAttribute('tag-model'));
+            var jsonspan = JSON.parse(oNodespan.parentNode.getAttribute('tag-model'));
+            console.log('json', json)
+            console.log('jsonspan', jsonspan)
+            var newdata;
+            if (json.REMOTEURL) {
+                var d = $.Deferred();
+                var url = json.REMOTEURL.indexOf('http:') > -1 ? json.REMOTEURL : editor.options.UEDITOR_HOME_URL +
+                    json.REMOTEURL;
+                $.ajax({
+                    url: url, //"http://localhost:8075/test.json",//
+                    dataType: "json"
+                }).done(function(response) {
+                    newdata = response.List;
+                    initData();
+                });
+            } else {
+                newdata = json.BINDINGDATA;
+                initData();
+            }
+
+
+            var selectedItems = [];
+
+            var selectItem = function(item) {
+                selectedItems.push(item);
+            };
+
+            var unselectItem = function(item) {
+                selectedItems = $.grep(selectedItems, function(i) {
+                    return i !== item;
+                });
+            };
+
+            var range = editor.selection.getRange();
+
+            function handleDialogOk() {
+               
+                oNode.innerHTML = "";
+                oNodespan.innerHTML = "";
+                json.VALUE = [];
+                json.TEXT = [];
+                
+                $(selectedItems).each(function(index, element) {
+                    oNode.innerHTML += element.TEXT + json.Separator;
+                    oNodespan.innerHTML += element.VALUE;
+                    json.VALUE.push(element.VALUE);
+                    json.TEXT.push(element.TEXT);
+                });
+                oNode.innerHTML = oNode.innerHTML.substring(0, oNode.innerHTML.lastIndexOf(json.Separator));
+                oNode.parentNode.setAttribute('tag-model', JSON.stringify(jsonspan));
+                oNodespan.innerHTML = oNodespan.innerHTML.substring(0, oNodespan.innerHTML.lastIndexOf(json.Separator));
+                oNodespan.parentNode.setAttribute('tag-model', JSON.stringify(jsonspan));
+                delete UE.plugins[thePlugins].editdom;
+              
+                dialog.close();
+            }
+            dialog.onok = handleDialogOk;
+        })(UE);
+    </script>
+</body>
+
+</html>
